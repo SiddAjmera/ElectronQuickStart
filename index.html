@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Explorer</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/photon.min.css">
+
+    <!-- Javascript -->
+    <script>var $ = jQuery = require("jquery");</script>
+    <script src="./js/menu.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="window">
+
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <h1 class="title">Explorer</h1>
+      </header>
+
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+        <div class="pane-group">
+          <div class="pane pane-sm sidebar">
+            <nav class="nav-group">
+              <h5 class="nav-group-title">Favorites</h5>
+              <span class="nav nav-group-item" id="sid">
+                <span class="icon icon-home"></span>
+                Siddharth
+              </span>
+              <span class="nav nav-group-item active" id="photon">
+                <span class="icon icon-light-up"></span>
+                Photon
+              </span>
+              <span class="nav nav-group-item" id="downloads">
+                <span class="icon icon-download"></span>
+                Downloads
+              </span>
+              <span class="nav nav-group-item" id="documents">
+                <span class="icon icon-folder"></span>
+                Documents
+              </span>
+              <span class="nav nav-group-item" id="applications">
+                <span class="icon icon-window"></span>
+                Applications
+              </span>
+              <span class="nav nav-group-item" id="airdrop">
+                <span class="icon icon-signal"></span>
+                AirDrop
+              </span>
+              <span class="nav nav-group-item" id="desktop">
+                <span class="icon icon-monitor"></span>
+                Desktop
+              </span>
+            </nav>
+          </div>
+
+          <div id="pane">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+      var app = require("./lib/app");
+      app.on("rendered", function(renderedHTML){
+          $("#pane").html(renderedHTML);
+      });
+      var showContent = function(view){
+          app.emit("view-selected", view);
+      }
+      $(function(){
+          showContent("photon");
+          $(".nav").on("click", function(ev){
+              ev.preventDefault();
+              showContent(this.id);
+          });
+      });
+  </script>
+</html>
